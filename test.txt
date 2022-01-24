@@ -1,0 +1,50 @@
+spl;FIREBALLLLLLLL;30;20
+atk;rusty sword;5
+spl;FIREBALLLLLLLL;30;20
+spl;FIREBALLLLLLLL;30;20
+spl;FIREBALLLLLLLL;30;20
+spl;FIREBALLLLLLLL;30;20
+def;wooden shield;3
+def;wooden shield;3
+def;wooden shield;3
+spl;FIREBALLLLLLLL;30;20
+def;wooden shield;3
+atk;iron sword;10
+atk;iron sword;10
+def;MASTER SHIELD;7
+def;iron shield;5
+atk;MASTER SWORD;15
+atk;MASTER SWORD;15
+def;MASTER SHIELD;7
+atk;iron sword;10
+spl;FIREBALLLLLLLL;30;20
+atk;rusty sword;5
+spl;FIREBALLLLLLLL;30;20
+atk;rusty sword;5
+atk;rusty sword;5
+spl;FIREBALLLLLLLL;30;20
+atk;iron sword;10
+atk;rusty sword;5
+def;iron shield;5
+def;wooden shield;3
+spl;FIREBALLLLLLLL;30;20
+atk;rusty sword;5
+spl;FIREBALLLLLLLL;30;20
+def;iron shield;5
+atk;rusty sword;5
+def;MASTER SHIELD;7
+atk;iron sword;10
+atk;iron sword;10
+atk;iron sword;10
+atk;iron sword;10
+atk;rusty sword;5
+def;wooden shield;3
+atk;MASTER SWORD;15
+atk;iron sword;10
+atk;MASTER SWORD;15
+atk;iron sword;10
+atk;rusty sword;5
+def;wooden shield;3
+spl;FIREBALLLLLLLL;30;20
+def;MASTER SHIELD;7
+atk;iron sword;10
