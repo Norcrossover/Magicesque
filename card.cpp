@@ -10,15 +10,31 @@ using namespace std;
 
 
 // card card XD (Implementation) 
-card::card() : type(nullptr), name() {}
+card::card() : type(nullptr), name(), description() {}
 
 
 
-card::card(const char* type, string new_name)
+card::card(char* n_type, string n_name, string n_desc) : name(n_name), description(n_desc) 
 {
-	this->type = new char[strlen(type)+1];
-	strcpy(this->type, type);
-	this->name = new_name;
+	type = new char[strlen(n_type)+1];
+	strcpy(type, n_type);
+}
+
+
+
+card::card(const card& new_card)
+{
+	this->type = new char[strlen(new_card.type)+1];
+	strcpy(this->type, new_card.type);
+	this->name = new_card.name;
+	this->description = new_card.description;
+}
+
+	
+	
+bool card::compare_type(char* type_cmp) const
+{
+	return (strcmp(this->type, type_cmp));
 }
 
 
@@ -31,71 +47,38 @@ card::~card()
 
 
 
-void card::display() const
-{
-}
-
-
-
-void card::activate_card() 
-{
-} 
-
-
-
-void card::deactivate_card() 
-{
-}
 //-----------------------------------------------------------------------------------------------------------------
 // attack card
-attack::attack(int atk, const char* type, string new_name) : card(type, new_name), damage(atk) {}
+attack::attack(int atk, char* type, string new_name, string new_description) : card(type, new_name, new_description), damage(atk) {}
 
 
 
-void attack::activate_card() 
-{
-	active = true;
-	cout << "Card " << name << " set!" << endl;
-}
+attack::attack(const attack& new_card) : card(new_card), damage(new_card.damage) {}
 
 
 
-void attack::deactivate_card()
-{
-	active = false;
-}
-
-
-
+//bool attack::attack_player(int& player_health);
 void attack::display() const
 {
 	cout << "Card Name: " << name << endl;
-	cout << "attack damage: " << damage << endl;
+	cout << "Attack Damage: " << damage << endl;
+	cout << "Description: " << description << endl;
 }
 //-----------------------------------------------------------------------------------------------------------------
 // defense card
-//defense::defense(const defense& new_defense_card) : card(new_defense_card), shield(new_defense_card.shield) {}
+defense::defense(int val, char* n_type, const string n_name, const string n_desc) : card(n_type, n_name, n_desc), shield(val) {}
 
 
 
-void defense::activate_card() 
-{
-	active = true;
-	cout << "Card " << name << " set!" << endl;
-}
+defense::defense(const defense& new_defense_card) : card(new_defense_card), shield(new_defense_card.shield) {}
 
-
-
-void defense::deactivate_card()
-{
-	active = false;
-	shield = 0;
-}
 
 
 void defense::display() const
 {
+	cout << "Card Name: " << name << endl;
 	cout << "Shield amount: " << shield << endl;
+	cout << "Description: " << description << endl;
 }
 
 
@@ -106,7 +89,15 @@ spell::spell() : damage(0), mana_cost(0), casting_quip(nullptr) {}
 
 
 
-spell::spell(int val, int cost, const char* type, string new_name) : card(type, new_name), damage(val), mana_cost(cost) {} 
+spell::spell(const spell& new_card) : card(new_card), damage(new_card.damage), mana_cost(new_card.mana_cost), casting_quip(new_card.casting_quip) {}
+
+
+
+spell::spell(int val, char* type, string new_name, string n_desc, char* quip, int mana) : card(type, new_name, n_desc), damage(val), mana_cost(mana) 
+{
+	casting_quip = new char[strlen(quip)+1];
+	strcpy(casting_quip, quip);
+} 
 
 
 
@@ -114,28 +105,32 @@ spell::~spell()
 {
 	if (casting_quip) delete casting_quip;
 	casting_quip = nullptr;
+	damage = 0;
+	mana_cost = 0;
 }
 
 
 
-void spell::activate_card()
+/*
+bool spell::cast_spell(player& enemy)
 {
-	active = true;
-	cout << "Card " << name << " set!" << endl;
+	// check if it's the heal status spell
+	// call enemy's damage function to attack them
 }
 
 
 
-void spell::deactivate_card()
+bool break_spell(bool& status)
 {
-	active = false;
+	status = false;
 }
+*/
 
 
 
 void spell::display() const
 {
-	cout << "Card name: " << name << endl;
-	cout << casting_quip << "!!!!!!" << endl;
+	cout << "Card Name: " << name << endl;
 	cout << "Spell damage: " << damage << endl;
+	cout << "Description: " << description << endl;
 }

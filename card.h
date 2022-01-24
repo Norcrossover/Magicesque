@@ -19,13 +19,14 @@ class card
 {
 	public:
 		card();
-		card(const char* type, const std::string name);
+		card(char* new_type, std::string new_name, std::string new_description);
 		card(const card& new_card);  				// Copy Constructor
 		~card();
-		bool compare_type(const char* type_comparison) const;	// It will compare the types, returns true if they're match or false otherwise
+		bool compare_type(char* type_comparison) const;	// It will compare the types, returns true if they're match or false otherwise
 	protected:
 		char* type;
 		std::string name;
+		std::string description;
 };
 
 
@@ -33,8 +34,8 @@ class card
 class attack : public card
 {
 	public:
-		attack(int new_attack_value, const char* type, const std::string new_name);
-		attack(attack& new_attack_card);
+		attack(int new_attack_value, char* type, const std::string new_name, const std::string new_description);
+		attack(const attack& new_attack_card);
 		//bool attack_player(player& player);
 		bool attack_player(int& player_health);
 		void display() const;
@@ -47,10 +48,9 @@ class attack : public card
 class defense : public card
 {
 	public:
-		defense(int new_defense_value, const char* type, const std::string new_name);
+		defense(int new_defense_value, char* type, const std::string new_name, const std::string new_description);
+		defense(const defense& new_defense_card);
 		bool heal_player(int& player_health);
-		void activate_card(); 
-		void deactivate_card();
 		void display() const;
 	protected:
 		int shield;
@@ -62,11 +62,11 @@ class spell : public card
 {
 	public:
 		spell();
-		spell(int new_spell_card, int new_mana_cost, const char* type, const std::string new_name);
+		spell(int new_spell_card, char* type, const std::string new_name, const std::string new_description, char* quip, int mana);
+		spell(const spell& new_card);
 		~spell();
 		bool cast_spell(int& player_health);
-		void activate_card();
-		void deactivate_card();
+		void break_spell(bool& status);
 		void display() const;
 	protected:
 		int damage;
