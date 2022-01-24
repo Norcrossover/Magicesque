@@ -20,15 +20,15 @@ class hand
 	public:
 		hand();
 		~hand();
-		bool add_card(const Node*& source);		// adds a card to the designated LLL
-		bool use_card();				// removes the card from the hand and does whatever the card needs to do
+		bool add_card(Node*& source);								// adds a card to the designated LLL
+		bool use_card();									// removes the card from the hand and does whatever the card needs to do
 	protected:
-		std::vector<node*& head> cards; 		// data structure
-		int number_of_cards;				// keeps track of the cards in hand
-		bool add_card(node *& new_node);
-		bool use_card();
-		bool destroy_hand(vector<node*&>& hand_of_cards, int number_of_cards_left);
-		bool destroy_fingers(node*& head);
+		std::vector<node*& head> cards; 							// data structure
+		int number_of_cards;									// keeps track of the cards in hand
+		bool add_card(node *& new_node);							// recursive function to traverse to the card
+		bool use_card();									// recursive function to select the card chosen
+		bool destroy_hand(vector<node*&>& hand_of_cards, int number_of_cards_left);		// recursive destructor function looping through the vector
+		bool destroy_fingers(node*& head);							// recursive destruction function that destroys each linked list
 };
 
 

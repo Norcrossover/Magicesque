@@ -8,7 +8,28 @@
 
 
 
-node::node() : next(nullptr), data(nullptr) {}
+node::node() : next(nullptr), atk(nullptr), def(nullptr), spl(nullptr) {}
+
+
+
+node::node(attack*& new_card)
+{
+	atk = new_card;
+}
+
+
+
+node::node(defense*& new_card)
+{
+	def = new_card;
+}
+
+
+
+node::node(spell*& new_spl)
+{
+	spl = new_spl;
+}
 
 
 
@@ -19,16 +40,18 @@ node*& node::get_next()
 
 
 
-void node::set_next(const node*& source)
+void node::set_next(node*& source)
 {
 	next = source;
 }
 
 
 
-char* node::get_type() const
+int node::get_type() const
 {
-	return data->get_type();
+	if (atk) return 0;
+	if (def) return 1;
+	return 2;
 }
 
 
@@ -88,13 +111,38 @@ bool deck::shuffle_deck(char* input_file)
 {
 	ifstream input;
 	input.open(input_file);
-	char* types[3] = {"atk", "def", "spl"};
+	char* type;
+	string new_name, new_quip;
+	int new_card_value;
 	
 	if (input.good())
 	{
 		while (!input.eof())		
 		{
 			// input type and implement checks in order to see what vals to put
+			type = new char[4];
+			input.getline(type, MAX, ';');
+			input.getline(new_name, MAX, ';');
+			input >> new_card_value;
+
+			if (strcmp(type, TYPES[0])
+			{
+				attack* new_atk_card(type, new_name, new_card_value);
+				add(new node(new_atk_card));
+			}
+			else if (strcmp(type, TYPES[1])
+			{
+				defense* new_def_card(type, new_name, new_card_value);
+				add(new node(new_def_card));
+			}
+			else
+			{
+				input.get();				// gets the extra semi colon
+				input.getline(new_quip, MAX, '\n');
+				spell* new_spl_card(type, new_name, new_card_value, new_quip);
+				add(new node(new_spl_card));
+			}
+			delete type;
 		}
 		return true;
 	}
@@ -157,4 +205,59 @@ bool deck::add_card(node*& new_card)
 		return true;
 	}
 	return false;
+}
+
+
+
+/*
+	This function will be called by a wrapper function from the game class.
+	Psuedo Code:
+	get a random traversal value;
+	return the call to the recursive function;	
+*/
+node*& deck::draw_card()
+{
+	int traversal = random(1, num_cards);
+	return draw_card(top, top->next, traversal-1);
+}
+
+
+
+/*
+	This function is the recursive call of the draw_card function.
+	Psuedo Code:
+	base case check: if traversal == 0
+		set the previous node to curr->next;
+		if (curr node == bottom node)
+			set the previous node to bottom
+		// don't need to delete the node since I'm going to use it in the hand
+		return current node;
+	return draw_card(curr, curr->get_next(), traversal-1);
+*/
+node*& deck::draw_card(node*& prev, node*& curr, traversal)
+{
+	if (traversal == 0)
+	{
+		prev->set_next(curr->get_next());
+		if (curr->get_next() == bottom)
+		{
+			prev = bottom;
+		}
+		curr->set_next(nullptr);
+		return curr;		
+	}
+	return draw_card(curr, curr->get_next(), traversal-1);
+}
+
+
+
+int random(int min, int max) 
+{
+	static bool first = true;
+	if (first)
+	{
+		srand(time(nullptr));
+		first = false;
+	}
+	return min + rand() %((max + 1) - min);	
 }
