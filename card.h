@@ -21,16 +21,11 @@ class card
 		card();
 		card(const char* type, const std::string name);
 		card(const card& new_card);  				// Copy Constructor
-		virtual ~card();
-		virtual void display() const;				// virtual display function that allows for the dynamic binding of the derived cards
-		virtual void activate_card(); 				// virtual activate card function that will activate it 
-		virtual void deactivate_card();
+		~card();
 		bool compare_type(const char* type_comparison) const;	// It will compare the types, returns true if they're match or false otherwise
-		bool is_active();					// checks if the card has been played
 	protected:
 		char* type;
 		std::string name;
-		bool active;						// new bool to check if the card is in play
 };
 
 
@@ -39,10 +34,9 @@ class attack : public card
 {
 	public:
 		attack(int new_attack_value, const char* type, const std::string new_name);
+		attack(attack& new_attack_card);
 		//bool attack_player(player& player);
 		bool attack_player(int& player_health);
-		void activate_card(); 
-		void deactivate_card();
 		void display() const;
 	protected:
 		int damage;
